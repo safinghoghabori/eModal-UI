@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { UserData } from '../../../auth/login/models/login.model';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { LocalStorageService } from '../../../core/services/local-storage.service';
 
 @Component({
   selector: 'dashboard-header',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './dashboard-header.component.html',
   styleUrl: './dashboard-header.component.css',
 })
