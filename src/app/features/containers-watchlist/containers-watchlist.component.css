@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+}
+
+.thead-dark {
+  background-color: #343a40;
+  color: #fff;
+}

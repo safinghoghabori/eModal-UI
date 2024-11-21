@@ -1,0 +1,36 @@
+<div class="container-fluid mt-3 watchlist-container">
+  <h4 class="text-center mb-3">My Containers</h4>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover text-center">
+      <thead class="thead-dark">
+        <tr>
+          <th>Container</th>
+          <th>Status</th>
+          <th>Holds</th>
+          <th>Gate Status</th>
+          <th>Origin</th>
+          <th>Destination</th>
+          <th>Line</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Display "No Records Found" if the list is empty -->
+        <tr *ngIf="containers.length === 0">
+          <td colspan="7" class="text-center text-muted">No records found</td>
+        </tr>
+
+        <!-- Loop through the container list -->
+        <!-- <tr *ngFor="let container of containers">
+          <td>{{ container.containerNo }}</td>
+          <td>{{ container.status }}</td>
+          <td>{{ container.holds }}</td>
+          <td>{{ container.gateStatus }}</td>
+          <td>{{ container.origin }}</td>
+          <td>{{ container.destination }}</td>
+          <td>{{ container.line }}</td>
+        </tr> -->
+      </tbody>
+    </table>
+  </div>
+</div>
