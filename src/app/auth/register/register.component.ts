@@ -6,6 +6,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { UserData } from '../login/models/login.model';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +21,7 @@ export class RegisterComponent {
   isLoading: boolean = false;
   errorMessage: string | null = null;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.registrationForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -29,6 +31,21 @@ export class RegisterComponent {
   }
 
   onSubmit(): void {
-    console.log('onsubmit clicked...');
+    if (this.registrationForm.invalid) {
+      return;
+    }
+
+    this.isLoading = true;
+    let userData: UserData = this.registrationForm.value;
+
+    this.authService.register(userData).subscribe({
+      next: (response) => {
+        this.isLoading = false;
+      },
+      error: (error) => {
+        this.isLoading = false;
+        this.errorMessage = error;
+      },
+    });
   }
 }

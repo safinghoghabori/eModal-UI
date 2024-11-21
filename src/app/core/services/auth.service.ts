@@ -5,7 +5,11 @@ import { Router } from '@angular/router';
 import { ErrorHandlerService } from './error-handler.service';
 import { LocalStorageService } from './local-storage.service';
 import { catchError, Observable, tap } from 'rxjs';
-import { LoginReq, LoginResp } from '../../auth/login/models/login.model';
+import {
+  LoginReq,
+  LoginResp,
+  UserData,
+} from '../../auth/login/models/login.model';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +38,18 @@ export class AuthService {
   isAuthenticated(): boolean {
     const token = this.localStorageService.getToken();
     return !!token;
+  }
+
+  register(userData: UserData): Observable<{ message: string }> {
+    return this.http
+      .post<{ message: string }>(`${this.apiUrl}/registration`, userData)
+      .pipe(
+        tap((response: { message: string }) => {
+          this.router.navigate(['/login']);
+          return response.message;
+        }),
+        catchError(this.errorHandlerService.handleError)
+      );
   }
 
   logout() {
