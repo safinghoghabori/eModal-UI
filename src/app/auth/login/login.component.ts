@@ -6,6 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent {
   isLoading: boolean = false;
   errorMessage: string | null = null;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -37,5 +38,14 @@ export class LoginComponent {
     };
 
     this.isLoading = true;
+    this.authService.login(credentials).subscribe({
+      next: (response) => {
+        this.isLoading = false;
+      },
+      error: (error) => {
+        this.errorMessage = error;
+        this.isLoading = false;
+      },
+    });
   }
 }
