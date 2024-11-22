@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AddContainerComponent } from '../add-container/add-container.component';
 import { ContainerData } from '../add-container/models/add-container.model';
+import { LocalStorageService } from '../../core/services/local-storage.service';
 
 @Component({
   selector: 'app-containers-watchlist',
@@ -15,6 +16,16 @@ export class ContainersWatchlistComponent {
   showModal: boolean = false; // Track modal visibility
   selectedContainer: any = null; // Track container being added
 
+  constructor(private localStorageService: LocalStorageService) {}
+
+  ngOnInit(): void {
+    // Load containers from localStorage when the component initializes
+    const storedContainers = this.localStorageService.getContainersData();
+    if (storedContainers) {
+      this.containers = storedContainers;
+    }
+  }
+
   openAddContainerDialog() {
     this.showModal = true; // Show the modal
   }
@@ -25,8 +36,13 @@ export class ContainersWatchlistComponent {
 
   handleContainerAdded(container: ContainerData) {
     if (container) {
-      this.containers.push(container); // Add container to table
+      this.containers.push(container);
+      this.saveToLocalStorage(); // Save the updated containers list
     }
     this.closeAddContainerDialog();
+  }
+
+  private saveToLocalStorage(): void {
+    this.localStorageService.setContainersData(this.containers);
   }
 }
