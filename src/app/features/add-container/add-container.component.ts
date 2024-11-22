@@ -7,6 +7,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { AddContainerService } from './services/add-container.service';
+import { ContainerData } from './models/add-container.model';
 
 @Component({
   selector: 'add-container',
@@ -20,8 +22,12 @@ export class AddContainerComponent {
 
   containerForm: FormGroup;
   errorMessage: string | null = null;
+  isLoading: boolean = false;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(
+    private fb: FormBuilder,
+    private addContainerService: AddContainerService
+  ) {
     this.containerForm = this.fb.group({
       containerNo: [
         '',
@@ -34,7 +40,19 @@ export class AddContainerComponent {
   }
 
   addContainer() {
-    console.log('add container called...');
+    const containerNo = this.containerForm.value.containerNo;
+
+    this.isLoading = true;
+    this.addContainerService.getContainerByContainerNo(containerNo).subscribe({
+      next: (response: ContainerData) => {
+        this.containerAdded.emit(response); // Emit container data to parent
+        this.isLoading = false;
+      },
+      error: (error) => {
+        this.errorMessage = error || 'Container not found.';
+        this.isLoading = false;
+      },
+    });
   }
 
   close() {
