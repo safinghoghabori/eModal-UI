@@ -18,28 +18,32 @@
           <th>Container</th>
           <th>Status</th>
           <th>Holds</th>
-          <th>Gate Status</th>
+          <th>Size Type</th>
+          <th>Line</th>
+          <th>Voyage</th>
+          <th>Vessel Code</th>
           <th>Origin</th>
           <th>Destination</th>
-          <th>Line</th>
         </tr>
       </thead>
       <tbody>
         <!-- Display "No Records Found" if the list is empty -->
         <tr *ngIf="containers.length === 0">
-          <td colspan="7" class="text-center text-muted">No records found</td>
+          <td colspan="9" class="text-center text-muted">No records found</td>
         </tr>
 
         <!-- Loop through the container list -->
-        <!-- <tr *ngFor="let container of containers">
-          <td>{{ container.containerNo }}</td>
-          <td>{{ container.status }}</td>
-          <td>{{ container.holds }}</td>
-          <td>{{ container.gateStatus }}</td>
-          <td>{{ container.origin }}</td>
-          <td>{{ container.destination }}</td>
-          <td>{{ container.line }}</td>
-        </tr> -->
+        <tr *ngFor="let container of containers">
+          <td>{{ container.containerInfo.containerNumber }}</td>
+          <td>{{ container.containerInfo.containerStatusDesc }}</td>
+          <td>{{ container.feesInfo.totalFees ? "Yes" : "No" }}</td>
+          <td>{{ container.containerInfo.containerType }}</td>
+          <td>N/A</td>
+          <td>{{ container.vesselInfo.name }}</td>
+          <td>{{ container.vesselInfo.code }}</td>
+          <td>N/A</td>
+          <td>N/A</td>
+        </tr>
       </tbody>
     </table>
   </div>
