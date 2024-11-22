@@ -4,6 +4,7 @@ import { LandingPageComponent } from './pages/landing-page/landing-page.componen
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { ContainersWatchlistComponent } from './features/containers-watchlist/containers-watchlist.component';
 
 export const routes: Routes = [
   {
@@ -18,5 +19,6 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+    children: [{ path: '', component: ContainersWatchlistComponent }],
   },
 ];

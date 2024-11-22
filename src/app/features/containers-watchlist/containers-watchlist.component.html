@@ -1,5 +1,15 @@
 <div class="container-fluid mt-3 watchlist-container">
-  <h4 class="text-center mb-3">My Containers</h4>
+  <div class="d-flex justify-content-center align-items-center mb-4">
+    <h4>My Containers</h4>
+    <button
+      class="btn btn-primary"
+      (click)="openAddContainerDialog()"
+      data-toggle="modal"
+      data-target="#exampleModalCenter"
+    >
+      Add Container
+    </button>
+  </div>
 
   <div class="table-responsive">
     <table class="table table-striped table-bordered table-hover text-center">
@@ -33,4 +43,9 @@
       </tbody>
     </table>
   </div>
+
+  <add-container
+    *ngIf="showModal"
+    (containerAdded)="handleContainerAdded($event)"
+  ></add-container>
 </div>
