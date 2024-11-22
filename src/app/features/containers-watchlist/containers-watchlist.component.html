@@ -27,6 +27,7 @@
           <th>Vessel Code</th>
           <th>Origin</th>
           <th>Destination</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -46,6 +47,14 @@
           <td>{{ container.vesselInfo.code }}</td>
           <td>N/A</td>
           <td>N/A</td>
+          <td>
+            <button
+              class="btn btn-primary p-1"
+              (click)="navigateToCheckout(container)"
+            >
+              Pay Now
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
