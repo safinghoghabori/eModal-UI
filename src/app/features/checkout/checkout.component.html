@@ -84,9 +84,15 @@
     <button
       type="submit"
       class="btn btn-success"
-      [disabled]="!paymentForm.valid || hasErrors()"
+      [disabled]="!paymentForm.valid || hasErrors() || isLoading"
     >
       Pay
+      <span
+        *ngIf="isLoading"
+        class="spinner-border spinner-border-sm"
+        role="status"
+        aria-hidden="true"
+      ></span>
     </button>
   </form>
 </div>

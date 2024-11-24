@@ -2,6 +2,9 @@ import { CommonModule, Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ContainerData } from '../add-container/models/add-container.model';
+import { PaymentService } from './services/payment.service';
+import { PaymentRequest, PaymentResp } from './models/checkout.model';
+import { LocalStorageService } from '../../core/services/local-storage.service';
 
 @Component({
   selector: 'app-checkout',
@@ -24,8 +27,13 @@ export class CheckoutComponent {
     cvv: '',
     cardholderName: '',
   };
+  isLoading: boolean = false;
 
-  constructor(private location: Location) {}
+  constructor(
+    private location: Location,
+    private paymentService: PaymentService,
+    private localStorageService: LocalStorageService
+  ) {}
 
   ngOnInit(): void {
     // Retrieve container data passed via state
@@ -91,10 +99,28 @@ export class CheckoutComponent {
 
   makePayment(): void {
     if (!this.hasErrors()) {
-      alert(
-        'Payment successful for Container ' +
-          this.container?.containerInfo.containerNumber
-      );
+      const userData = this.localStorageService.getUserData();
+      const paymentRequest: PaymentRequest = {
+        userId: userData.id,
+        amount: this.container?.containerFeesInfo.totalFees || 0,
+        ediFileId: this.container?.id || '',
+        containerNumber: this.container?.containerInfo.containerNumber || '',
+      };
+      this.isLoading = true;
+      this.paymentService.initiatePayment(paymentRequest).subscribe({
+        next: (response: PaymentResp) => {
+          this.isLoading = false;
+          if (response.isSuccessful) {
+            alert('Payment done successfully!');
+          } else {
+            alert('Payment failed. Please try again.');
+          }
+        },
+        error: (error) => {
+          this.isLoading = false;
+          alert('An error occurred while processing payment.');
+        },
+      });
     } else {
       alert('Please fix the errors in the form.');
     }
