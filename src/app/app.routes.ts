@@ -8,6 +8,7 @@ import { ContainersWatchlistComponent } from './features/containers-watchlist/co
 import { CheckoutComponent } from './features/checkout/checkout.component';
 import { UploadEdiComponent } from './features/upload-edi/upload-edi.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { UnAuthGuard } from './core/guards/un-auth.guard';
 
 export const routes: Routes = [
   {
@@ -18,6 +19,7 @@ export const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
     ],
+    canActivate: [UnAuthGuard],
   },
   {
     path: 'dashboard',
