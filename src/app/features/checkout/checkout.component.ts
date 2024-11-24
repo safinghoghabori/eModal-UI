@@ -5,6 +5,7 @@ import { ContainerData } from '../add-container/models/add-container.model';
 import { PaymentService } from './services/payment.service';
 import { PaymentRequest, PaymentResp } from './models/checkout.model';
 import { LocalStorageService } from '../../core/services/local-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -32,7 +33,8 @@ export class CheckoutComponent {
   constructor(
     private location: Location,
     private paymentService: PaymentService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -106,11 +108,28 @@ export class CheckoutComponent {
         ediFileId: this.container?.id || '',
         containerNumber: this.container?.containerInfo.containerNumber || '',
       };
+
       this.isLoading = true;
       this.paymentService.initiatePayment(paymentRequest).subscribe({
         next: (response: PaymentResp) => {
           this.isLoading = false;
           if (response.isSuccessful) {
+            // Update container json in local storage
+            const updatedContainers = this.localStorageService
+              .getContainersData()
+              .map((item) => {
+                if (
+                  item.containerInfo.containerNumber ===
+                  this.container?.containerInfo.containerNumber
+                ) {
+                  item.containerFeesInfo.isFeesPaid = true;
+                }
+                return item;
+              });
+            this.localStorageService.setContainersData(updatedContainers);
+
+            // Navigate to My containers page
+            this.router.navigate(['dashboard']);
             alert('Payment done successfully!');
           } else {
             alert('Payment failed. Please try again.');
