@@ -41,3 +41,7 @@ h2 {
   color: red;
   font-size: 0.8em;
 }
+
+small {
+  font-size: 0.9rem;
+}
