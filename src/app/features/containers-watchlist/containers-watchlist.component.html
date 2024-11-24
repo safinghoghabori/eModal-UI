@@ -40,13 +40,19 @@
         <tr *ngFor="let container of containers">
           <td>{{ container.containerInfo.containerNumber }}</td>
           <td>{{ container.containerInfo.containerStatusDesc }}</td>
-          <td>{{ container.feesInfo.totalFees ? "Yes" : "No" }}</td>
+          <td>{{ container.containerFeesInfo.isFeesPaid ? "No" : "Yes" }}</td>
           <td>{{ container.containerInfo.containerType }}</td>
-          <td>N/A</td>
+          <td>{{ container.line }}</td>
           <td>{{ container.vesselInfo.name }}</td>
           <td>{{ container.vesselInfo.code }}</td>
-          <td>N/A</td>
-          <td>N/A</td>
+          <td *ngFor="let port of container.portTerminals">
+            {{ port.portName }}
+          </td>
+          @if (container.containerFeesInfo.isFeesPaid) {
+          <td>
+            <button class="btn btn-success p-1" disabled>Paid</button>
+          </td>
+          } @else {
           <td>
             <button
               class="btn btn-primary p-1"
@@ -55,6 +61,7 @@
               Pay Now
             </button>
           </td>
+          }
         </tr>
       </tbody>
     </table>

@@ -3,7 +3,9 @@
   <p>
     <strong>Container:</strong> {{ container?.containerInfo?.containerNumber }}
   </p>
-  <p><strong>Total Fee:</strong> ${{ container?.feesInfo?.totalFees }}</p>
+  <p>
+    <strong>Total Fee:</strong> ${{ container?.containerFeesInfo?.totalFees }}
+  </p>
 
   <form #paymentForm="ngForm" (ngSubmit)="makePayment()">
     <!-- Card Number -->

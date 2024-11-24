@@ -1,11 +1,12 @@
 export interface ContainerData {
   id: string;
   transactionIdentifierCode: string;
+  line: string;
   lastFreeDate?: Date;
   goodThroughDate?: Date;
   ediHeader: EDIHeader;
   containerInfo: ContainerInfo;
-  feesInfo: FeesInfo;
+  containerFeesInfo: ContainerFeesInfo;
   vesselInfo: VesselInfo;
   shipmentStatuses: ShipmentStatusInfo[];
   portTerminals: PortTerminalInfo[];
@@ -27,9 +28,10 @@ export interface ContainerInfo {
   containerTypeDesc: string;
 }
 
-export interface FeesInfo {
+export interface ContainerFeesInfo {
   fees?: Fee[];
   totalFees: number;
+  isFeesPaid: boolean;
 }
 
 export interface Fee {
