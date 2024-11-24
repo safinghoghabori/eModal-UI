@@ -7,6 +7,7 @@ import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { ContainersWatchlistComponent } from './features/containers-watchlist/containers-watchlist.component';
 import { CheckoutComponent } from './features/checkout/checkout.component';
 import { UploadEdiComponent } from './features/upload-edi/upload-edi.component';
+import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -26,5 +27,6 @@ export const routes: Routes = [
       { path: 'checkout', component: CheckoutComponent },
       { path: 'upload-edi', component: UploadEdiComponent },
     ],
+    canActivate: [AuthGuard],
   },
 ];
