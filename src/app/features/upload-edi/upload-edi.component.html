@@ -1,0 +1,34 @@
+<div class="container mt-5">
+  <h4 class="text-center mb-4">Upload File</h4>
+  <div class="card p-4 shadow">
+    <div class="mb-3">
+      <label for="fileInput" class="form-label">Choose an EDI-315 file:</label>
+      <input
+        type="file"
+        class="form-control"
+        id="fileInput"
+        (change)="onFileSelected($event)"
+        accept=".txt"
+      />
+      <div *ngIf="errorMessage" class="text-danger mt-2">
+        {{ errorMessage }}
+      </div>
+    </div>
+
+    <button
+      class="btn btn-primary"
+      [disabled]="!selectedFile || isLoading"
+      (click)="uploadFile()"
+    >
+      Upload
+      <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+    </button>
+
+    <div *ngIf="successMessage" class="alert alert-success mt-3">
+      {{ successMessage }}
+    </div>
+    <div *ngIf="apiErrorMessage && !isLoading" class="alert alert-danger mt-3">
+      {{ apiErrorMessage }}
+    </div>
+  </div>
+</div>

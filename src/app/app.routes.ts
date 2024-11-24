@@ -6,6 +6,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { ContainersWatchlistComponent } from './features/containers-watchlist/containers-watchlist.component';
 import { CheckoutComponent } from './features/checkout/checkout.component';
+import { UploadEdiComponent } from './features/upload-edi/upload-edi.component';
 
 export const routes: Routes = [
   {
@@ -23,6 +24,7 @@ export const routes: Routes = [
     children: [
       { path: '', component: ContainersWatchlistComponent },
       { path: 'checkout', component: CheckoutComponent },
+      { path: 'upload-edi', component: UploadEdiComponent },
     ],
   },
 ];
