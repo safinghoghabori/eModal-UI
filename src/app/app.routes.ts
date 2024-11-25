@@ -9,6 +9,7 @@ import { CheckoutComponent } from './features/checkout/checkout.component';
 import { UploadEdiComponent } from './features/upload-edi/upload-edi.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { UnAuthGuard } from './core/guards/un-auth.guard';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 export const routes: Routes = [
   {
@@ -31,4 +32,5 @@ export const routes: Routes = [
     ],
     canActivate: [AuthGuard],
   },
+  { path: '**', component: PageNotFoundComponent },
 ];
