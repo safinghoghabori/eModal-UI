@@ -3,12 +3,48 @@
   padding: 0;
 }
 
+table {
+  text-align: center;
+}
+
+.watchlist-container {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+}
+
 .table th,
 .table td {
   vertical-align: middle;
 }
 
-.thead-dark {
-  background-color: #343a40;
-  color: #fff;
+.table td {
+  font-weight: 500;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(0, 123, 255, 0.1); /* Light blue hover effect */
+}
+
+.btn {
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+.btn-primary,
+.btn-success {
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-success:hover {
+  background-color: #28a745;
+}
+
+.text-muted {
+  font-style: italic;
 }
