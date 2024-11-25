@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
 import { ErrorHandlerService } from '../../../core/services/error-handler.service';
 import { LocalStorageService } from '../../../core/services/local-storage.service';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EdiParserService {
-  private apiUrl = 'https://localhost:7214/api/ediparser/upload';
+  private apiUrl = environment.baseUrl;
   constructor(
     private http: HttpClient,
     private errorHandlerService: ErrorHandlerService,
@@ -20,7 +21,7 @@ export class EdiParserService {
     formData.append('file', file);
 
     return this.http
-      .post<{ message: string }>(this.apiUrl, formData, {
+      .post<{ message: string }>(`${this.apiUrl}/ediparser/upload`, formData, {
         headers: new HttpHeaders({
           Authorization: `Bearer ${this.localStorageService.getToken()}`,
         }),
