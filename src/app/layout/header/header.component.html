@@ -20,13 +20,15 @@
               >Login</a
             >
           </li>
-          <li class="nav-item">
-            <a
-              class="nav-link active"
+          <li>
+            <button
+              type="button"
+              class="btn btn-outline-primary"
               aria-current="page"
-              routerLink="/register"
-              >Register</a
+              (click)="onRegisterClick()"
             >
+              Register
+            </button>
           </li>
         </ul>
       </div>
