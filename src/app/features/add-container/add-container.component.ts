@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { AddContainerService } from './services/add-container.service';
 import { ContainerData } from './models/add-container.model';
+import { LocalStorageService } from '../../core/services/local-storage.service';
 
 @Component({
   selector: 'add-container',
@@ -25,7 +26,8 @@ export class AddContainerComponent {
 
   constructor(
     private fb: FormBuilder,
-    private addContainerService: AddContainerService
+    private addContainerService: AddContainerService,
+    private localStorageService: LocalStorageService
   ) {
     this.containerForm = this.fb.group({
       containerNo: [
@@ -42,16 +44,30 @@ export class AddContainerComponent {
     const containerNo = this.containerForm.value.containerNo;
 
     this.isLoading = true;
-    this.addContainerService.getContainerByContainerNo(containerNo).subscribe({
-      next: (response: ContainerData) => {
-        this.containerAdded.emit(response); // Emit container data to parent
-        this.isLoading = false;
-      },
-      error: (error) => {
-        this.errorMessage = error || 'Container not found.';
-        this.isLoading = false;
-      },
-    });
+
+    // Check in localstorage if container number is already added or not
+    const containers = this.localStorageService.getContainersData();
+    const isContainerAlreadyAdded = containers.find(
+      (container) => container.containerInfo.containerNumber === containerNo
+    );
+
+    if (isContainerAlreadyAdded) {
+      this.errorMessage = 'Container is already added in watchlist!';
+      this.isLoading = false;
+    } else {
+      this.addContainerService
+        .getContainerByContainerNo(containerNo)
+        .subscribe({
+          next: (response: ContainerData) => {
+            this.containerAdded.emit(response); // Emit container data to parent
+            this.isLoading = false;
+          },
+          error: (error) => {
+            this.errorMessage = error || 'Container not found.';
+            this.isLoading = false;
+          },
+        });
+    }
   }
 
   close() {
