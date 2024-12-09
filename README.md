@@ -1,27 +1,39 @@
-# EModalUI
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.3.
+# Container Watchlist - eModal
 
-## Development server
+This application is one of the core features of intermodal business solutions where Trucking company / BCO(Beneficial Cargo Owner) / Shipper can view its container statuses, holds like custom holds etc, pay various types of container fees (for ex. import gate fee, demurrage fees etc.).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Tech Stack
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+**Client:** Html, CSS, Javascript, Typescript, Angular, Bootstrap
 
-## Build
+**Server:** .NET 8, ASP.NET Core, Entity Framework, Microservices, JWT, Microsoft Azure, Azure Service Bus, Azure SQL DB, Azure Cosmos DB, API 
+Gateway (BFF), Docker, Git, Github
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Features
 
-## Running end-to-end tests
+- SPA
+- Loading state handling
+- Error handling 
+- File and Folder structure
+- Clean, scalable, organized code
+- Route guards, show page not found ui for random URLs
+- Responsive UI (mobile friendly)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## How to run?
 
-## Further help
+If you have Docker running locally
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+  To create docker image: docker build -t angulardocker .
+  To run the container: docker run -d --name angulardockercontainer -p 4200:4200 angulardocker:latest
+```
+
+or, run below command
+
+```bash
+ng serve
+```
